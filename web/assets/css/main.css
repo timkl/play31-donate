@@ -308,16 +308,27 @@ td, th {
 
 body {
   width: 80vw;
-  margin: 0 auto; }
+  margin: 0 auto;
+  color: #353535; }
 
 figure {
   margin: 0; }
 
+p {
+  line-height: 1.5; }
+
+* {
+  box-sizing: border-box; }
+
 .section-title {
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  font-size: 2em; }
 
 .section-highlight {
   color: #24ae6c; }
+
+.donation-cc {
+  margin-bottom: 120px; }
 
 .donation-cc_list ul {
   list-style: none;
@@ -331,5 +342,30 @@ figure {
     margin-right: 10px; }
     .donation-cc_list ul li:last-child {
       margin-right: 0; }
+
+.form-input {
+  display: inline-block;
+  border: 1px solid #a5a5a5;
+  border-radius: 5px;
+  height: 40px;
+  padding: 10px; }
+  .form-input input {
+    border: none;
+    color: #a5a5a5;
+    text-align: right; }
+
+.btn {
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px; }
+
+.btn-pry {
+  color: #ffffff;
+  background-color: #24ae6c; }
+
+.img-inline {
+  float: left;
+  margin: 0 20px 20px 0; }
 
 /*# sourceMappingURL=main.css.map */
