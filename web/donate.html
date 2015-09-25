@@ -63,53 +63,48 @@
       </p>
     </nav>
 
-    <form action="">
-      <span class="form-input">
-        <input name="" type="text" value="200"/>
-        <span>DKK</span>
-      </span>
+    <button id="customButton">Purchase</button>
 
-      <button id="customButton">Purchase</button>
-
-      <!-- Hidden form used for submitting info to Stripe -->
-      <form action="/payments/stripe.php" id="paymentForm" method="POST">
-        <input type="hidden" name="stripeToken" id="stripeToken" />
-      </form>
-      <script>
-        var handler = StripeCheckout.configure({
-          key: 'pk_test_vn5LbJcdJtuqBonjRtTIC6hM',
-          image: 'assets/images/stripe.jpg',
-          allowRememberMe: false,
-          locale: 'auto',
-          token: function(token) {
-            $('#customButton').addClass('inactive');
-            $('#customButton').attr("disabled", true);
-            $('#stripeToken').val(token.id);
-            $('#paymentForm').submit();
-          }
-        });
-
-        $('#customButton').on('click', function(e) {
-          popout(2000, "1 Football");
-          e.preventDefault();
-        });
-
-        function popout(amount, description){
-          handler.open({
-            name: 'Play31',
-            description: description,
-            currency: "dkk",
-            amount: amount
-          });
-        }
-
-        // Close Checkout on page navigation
-        $(window).on('popstate', function() {
-          handler.close();
-        });
-      </script>
-
+    <!-- Hidden form used for submitting info to Stripe -->
+    <form action="/payments/stripe.php" id="paymentForm" method="POST">
+      <input type="hidden" name="stripeToken" id="stripeToken" />
+      <input name="amount" type="number" value="2000" /> <span>DKK</span>
+    </span>
     </form>
+    <script>
+      var handler = StripeCheckout.configure({
+        key: 'pk_test_vn5LbJcdJtuqBonjRtTIC6hM',
+        image: 'assets/images/stripe.jpg',
+        allowRememberMe: false,
+        locale: 'auto',
+        token: function(token) {
+          $('#customButton').addClass('inactive');
+          $('#customButton').attr("disabled", true);
+          $('#stripeToken').val(token.id);
+          $('#paymentForm').submit();
+        }
+      });
+
+      $('#customButton').on('click', function(e) {
+        popout(2000, "1 Football");
+        e.preventDefault();
+      });
+
+      function popout(amount, description){
+        handler.open({
+          name: 'Play31',
+          description: description,
+          currency: "dkk",
+          amount: amount
+        });
+      }
+
+      // Close Checkout on page navigation
+      $(window).on('popstate', function() {
+        handler.close();
+      });
+    </script>
+
   </section>
 
   <section class="donation-mobile">
