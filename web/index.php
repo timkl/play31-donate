@@ -18,12 +18,6 @@ if ($_POST) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    </head>
-    <body>
-
 
 <?php if ($_POST) { ?>
 
@@ -32,11 +26,7 @@ Thank you
 
 <?php } else {
 
-  require_once './partials/donate.html';
+  require_once './assets/partials/donate.html';
 
 } ?>
 
-
-
-    </body>
-</html>
