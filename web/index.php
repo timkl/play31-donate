@@ -27,7 +27,7 @@ Thank you
 
 <?php } else {
 
-  require_once './assets/partials/donate.html';
+  require_once './assets/donate.html';
 
 } ?>
 
