@@ -2,22 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Play 31</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+<style>
+
+
+#customButton{
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    width:120px;
+    background-color: rgb(46,173,110);
+    border:none;
+    border-radius: 4px;
+    height:30px;
+}
+
+#customButton.inactive {
+    background-color: #dddddd;
+}
+
+</style>
+
+
 </head>
 <body>
 
-  <form action="payments/stripe.php" method="POST">
-    <script
-        src="https://checkout.stripe.com/checkout.js"
-        class="stripe-button"
-        data-key="pk_test_vn5LbJcdJtuqBonjRtTIC6hM"
-        data-amount="2000"
-        data-name="Demo Site"
-        data-description="2 widgets ($20.00)"
-        data-image="/128x128.png"
-        data-locale="auto">
-    </script>
+  <form action="index.php" id="paymentForm" method="POST">
+      <input type="hidden" name="stripeToken" id="stripeToken"></input>
   </form>
+
+
+
+
+
+  <button id="customButton">Purchase</button>
+
+  <script>
+    var handler = StripeCheckout.configure({
+      key: 'pk_test_vn5LbJcdJtuqBonjRtTIC6hM',
+      image: 'assets/imgs/smalllogo.png',
+      allowRememberMe: false,
+      locale: 'auto',
+      token: function(token) {
+        $('#customButton').addClass('inactive');
+        $('#customButton').attr("disabled", true);
+        $('#stripeToken').val(token.id);
+        $('#paymentForm').submit();
+      }
+    });
+
+    $('#customButton').on('click', function(e) {
+      popout(2000, "1 Football");
+      e.preventDefault();
+    });
+
+    function popout(amount, description){
+        handler.open({
+          name: 'Play31',
+          description: description,
+          currency: "dkk",
+          amount: amount
+        });
+    }
+
+
+
+    // Close Checkout on page navigation
+    $(window).on('popstate', function() {
+      handler.close();
+    });
+  </script>
+
+
+
 
 </body>
 </html>
