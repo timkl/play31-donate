@@ -11,6 +11,7 @@ if ($_POST) {
                                 "currency" => "usd",
                                 "card" => $_POST['stripeToken']));
     $success = 'Your payment was successful.';
+    header('Location: http://www.provider.com/process.jsp?id=12345&name=John');
   }
   catch (Exception $e) {
     $error = $e->getMessage();
