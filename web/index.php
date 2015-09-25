@@ -1,5 +1,6 @@
 <?php
-require './init.php';
+require './vendor/stripe/stripe-php/init.php';
+
 if ($_POST) {
   \Stripe\Stripe::setApiKey("sk_test_ezB4z3SpCMH55873RqC4GK2A");
   $error = '';
