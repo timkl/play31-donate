@@ -10,7 +10,7 @@
       \Stripe\Charge::create(array("amount" => 1000,
                                   "currency" => "usd",
                                   "card" => $_POST['stripeToken']));
-      header('Location: http://play31.herokuapp.com/thankyou.html');
+      header('Location: http://play31.herokuapp.com/thank-you.html');
     }
     catch (Exception $e) {
       $error = $e->getMessage();
