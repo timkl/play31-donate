@@ -1,14 +1,13 @@
 <?php
   require '../../vendor/stripe/stripe-php/init.php';
   if ($_POST) {
-    Stripe::setApiKey("sk_test_ezB4z3SpCMH55873RqC4GK2A");
+    \Stripe\Stripe::setApiKey("sk_test_ezB4z3SpCMH55873RqC4GK2A");
     $error = '';
     $success = '';
     try {
       if (!isset($_POST['stripeToken']))
         throw new Exception("The Stripe Token was not generated correctly");
-
-      Stripe_Charge::create(array("amount" => $_POST['amount'],
+      Stripe\Charge::create(array("amount" => $_POST['amount'],
                                   "currency" => "dkk",
                                   "card" => $_POST['stripeToken']));
 
