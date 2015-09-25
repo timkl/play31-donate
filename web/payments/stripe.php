@@ -7,9 +7,10 @@
     try {
       if (!isset($_POST['stripeToken']))
         throw new Exception("The Stripe Token was not generated correctly");
-      \Stripe\Charge::create(array("amount" => 1000,
-                                  "currency" => "usd",
+      \Stripe\Charge::create(array("amount" => 20,
+                                  "currency" => "dkk",
                                   "card" => $_POST['stripeToken']));
+
       header('Location: http://play31.herokuapp.com/thank-you.html');
     }
     catch (Exception $e) {
