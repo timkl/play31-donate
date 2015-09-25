@@ -7,6 +7,25 @@
 
   <link rel="stylesheet" href="assets/css/main.css">
   <title>Play31</title>
+
+  <!-- FIXME: TMP STYLING STUFF -->
+  <style>
+    #customButton{
+      font-size: 14px;
+      color: #fff;
+      font-weight: bold;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      width:120px;
+      background-color: rgb(46,173,110);
+      border:none;
+      border-radius: 4px;
+      height:30px;
+    }
+
+    #customButton.inactive {
+      background-color: #dddddd;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -45,7 +64,47 @@
         <input name="" type="text" value="200"/>
         <span>DKK</span>
       </span>
-      <button class="btn btn-pry">Pay</button>
+
+      <button id="customButton">Purchase</button>
+
+      <!-- Hidden form used for submitting info to Stripe -->
+      <form action="/payments/stripe.php" id="paymentForm" method="POST">
+        <input type="hidden" name="stripeToken" id="stripeToken" />
+      </form>
+      <script>
+        var handler = StripeCheckout.configure({
+          key: 'pk_test_vn5LbJcdJtuqBonjRtTIC6hM',
+          image: 'assets/images/stripe.jpg',
+          allowRememberMe: false,
+          locale: 'auto',
+          token: function(token) {
+            $('#customButton').addClass('inactive');
+            $('#customButton').attr("disabled", true);
+            $('#stripeToken').val(token.id);
+            $('#paymentForm').submit();
+          }
+        });
+
+        $('#customButton').on('click', function(e) {
+          popout(2000, "1 Football");
+          e.preventDefault();
+        });
+
+        function popout(amount, description){
+          handler.open({
+            name: 'Play31',
+            description: description,
+            currency: "dkk",
+            amount: amount
+          });
+        }
+
+        // Close Checkout on page navigation
+        $(window).on('popstate', function() {
+          handler.close();
+        });
+      </script>
+
     </form>
   </section>
 
@@ -62,6 +121,9 @@
 Modtager vil stå som Jacob Silas Lund.
     </p>
   </section>
+
   <script type="text/javascript" src="/assets/js/main.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
 </body>
 </html>
